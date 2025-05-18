@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cricket Score Counter</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Using Montserrat for a modern, rich look -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Cricket Score Counter</h1>
+    </header>
+    
+    <!-- Scoreboard Section (2 Columns) -->
+    <section class="scoreboard">
+      <div class="score-col">
+        <div class="score-item">
+          <span class="label">Runs Scored:</span>
+          <span id="score">0</span>
+        </div>
+        <div class="score-item">
+          <span class="label">Run Rate:</span>
+          <span id="runRate">0.00</span>
+        </div>
+      </div>
+      <div class="score-col">
+        <div class="score-item">
+          <span class="label">Overs:</span>
+          <span id="overs">0.0</span>
+        </div>
+        <div class="score-item">
+          <span class="label">Wickets:</span>
+          <span id="wickets" data-value="0">0</span>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Target to Achieve Section -->
+    <section class="target-achieve">
+      <h2>Target to Achieve</h2>
+      <div id="targetDisplay" class="target-display"></div>
+    </section>
+    
+    <!-- Current Over Section -->
+    <section class="over-indicator">
+      <h2>Current Over</h2>
+      <div id="ballsIndicator" class="balls-indicator"></div>
+    </section>
+    
+    <!-- Scoring Actions Section -->
+    <section class="controls">
+      <h2>Scoring Actions</h2>
+      <div class="buttons">
+        <button class="action-btn" onclick="addLegalBall(0)">Dot Ball</button>
+        <button class="action-btn" onclick="addLegalBall(1)">+1 Run</button>
+        <button class="action-btn" onclick="addLegalBall(2)">+2 Runs</button>
+        <button class="action-btn" onclick="addLegalBall(3)">+3 Runs</button>
+        <button class="action-btn" onclick="addLegalBall(4)">+4 Runs</button>
+        <button class="action-btn" onclick="addLegalBall(6)">+6 Runs</button>
+      </div>
+      <div class="buttons">
+        <button class="action-btn extra-btn" onclick="addExtra('wd')">Wide Ball</button>
+        <button class="action-btn extra-btn" onclick="addExtra('nb')">No Ball</button>
+      </div>
+      <div class="buttons">
+        <button class="action-btn wicket-btn" onclick="addWicket()">Wicket</button>
+        <button class="action-btn undo-btn" onclick="undo()">Undo</button>
+        <button class="action-btn reset-btn" onclick="resetMatch()">Reset</button>
+      </div>
+    </section>
+    
+    <!-- Over-wise Scorecard Section -->
+    <section class="overwise-score">
+      <h2>Over-wise Scorecard</h2>
+      <div id="overwiseScore"></div>
+    </section>
+    
+    <!-- Target Setting Option Section -->
+    <section class="target-setting">
+      <h2>Target Setting Option</h2>
+      <div class="target-inputs">
+        <input type="number" id="targetRuns" placeholder="Runs" />
+        <input type="number" id="targetBalls" placeholder="Balls" />
+      </div>
+      <button id="setTarget">Set Target</button>
+    </section>
+    
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
