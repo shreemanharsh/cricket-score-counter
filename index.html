@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cricket Score Counter</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Using Montserrat for a modern, rich look -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -64,11 +63,11 @@
       <div class="buttons">
         <button class="action-btn extra-btn" onclick="addExtra('wd')">Wide Ball</button>
         <button class="action-btn extra-btn" onclick="addExtra('nb')">No Ball</button>
-      </div>
-      <div class="buttons">
         <button class="action-btn wicket-btn" onclick="addWicket()">Wicket</button>
+      </div>
+      <div class="utility-buttons">
         <button class="action-btn undo-btn" onclick="undo()">Undo</button>
-        <button class="action-btn reset-btn" onclick="resetMatch()">Reset</button>
+        <button class="action-btn reset-btn" onclick="confirmReset()">Reset</button>
       </div>
     </section>
     
