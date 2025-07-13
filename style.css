@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   background: linear-gradient(135deg, #E0EAFC, #CFDEF3);
@@ -12,158 +17,156 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
 
 .container {
-  max-width: 360px;
+  max-width: 380px;
   width: 95%;
   background: #fff;
   padding: 10px;
   border: 2px solid #ddd;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
-/* Header */
-header h1 {
-  font-size: 1.6rem;
+/* Center all headings */
+header h1,
+section h2 {
   text-align: center;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 8px;
   color: #2E86C1;
+  margin-bottom: 8px;
 }
 
 /* Scoreboard Section: Two columns */
 .scoreboard {
   display: flex;
   justify-content: space-between;
+  align-items: stretch;
   margin-bottom: 10px;
 }
+
 .score-col {
   width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 .score-item {
   border: 1px solid #ddd;
   border-radius: 4px;
-  padding: 6px;
-  margin-bottom: 6px;
+  padding: 8px;
   text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 6px;
 }
+
+.score-item:last-child {
+  margin-bottom: 0;
+}
+
 .label {
   font-weight: 600;
-  display: block;
   margin-bottom: 4px;
 }
+
 #score {
   font-size: 2.2rem;
   font-weight: 700;
   color: #2E86C1;
 }
-#runRate {
+
+#runRate,
+#overs,
+#wickets {
   font-size: 1.2rem;
 }
-#overs {
-  font-size: 1.8rem;
-}
+
 #wickets {
-  font-size: 1.6rem;
   color: #E74C3C;
 }
 
-/* Target to Achieve Section */
-.target-achieve {
+/* Uniform section styling */
+.target-achieve,
+.over-indicator,
+.controls,
+.overwise-score,
+.target-setting {
   border: 1px solid #ddd;
   border-radius: 6px;
-  padding: 8px;
-  margin-bottom: 10px;
-  background-color: #F0F8FF;
-  text-align: center;
-}
-.target-achieve h2 {
-  font-size: 1rem;
-  margin-bottom: 6px;
-  color: #2E86C1;
-}
-.target-display {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #34495E;
-}
-
-/* Current Over Section */
-.over-indicator {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 8px;
+  padding: 10px;
   margin-bottom: 10px;
   background-color: #F9F9F9;
-  text-align: center;
 }
-.over-indicator h2 {
-  font-size: 1rem;
-  margin-bottom: 6px;
-  color: #2E86C1;
+
+/* Specific backgrounds */
+.target-achieve,
+.target-setting {
+  background-color: #F0F8FF;
 }
+
+/* Ball indicators */
 .balls-indicator {
   display: flex;
   justify-content: center;
   gap: 4px;
+  flex-wrap: wrap;
 }
+
 .ball {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border: 2px solid #2E86C1;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 10px;
-  transition: width 0.2s, height 0.2s;
-}
-.ball.extra-ball {
-  width: 26px;
-  height: 26px;
   font-size: 12px;
+}
+
+.extra-ball {
   border-color: #F39C12;
 }
 
-/* Controls (Scoring Actions) Section */
-.controls {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 8px;
-  margin-bottom: 10px;
-  background-color: #F3F3F3;
-}
-.controls h2 {
-  font-size: 1rem;
-  margin-bottom: 6px;
-  color: #2E86C1;
-}
+/* Controls: buttons layout */
 .buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 4px;
-  margin-bottom: 6px;
+  gap: 6px;
+  margin-bottom: 8px;
 }
+
+.utility-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Action buttons */
 .action-btn {
-  padding: 6px 10px;
+  padding: 10px 14px;
+  min-width: 70px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   background: #2E86C1;
   color: white;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .action-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
+
 .extra-btn { background: #F39C12; }
 .wicket-btn { background: #E74C3C; }
 .undo-btn { background: #95A5A6; }
@@ -174,19 +177,20 @@ header h1 {
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 8px;
-  margin-bottom: 10px;
   background-color: #F9F9F9;
+  margin-bottom: 10px;
 }
-.overwise-score h2 {
-  font-size: 1rem;
-  margin-bottom: 6px;
-  color: #2E86C1;
-}
+
 .over {
-  font-size: 0.8rem;
-  margin-bottom: 4px;
+  font-size: 0.85rem;
   text-align: center;
+  margin-bottom: 4px;
 }
+
+.over:last-child {
+  margin-bottom: 0;
+}
+
 .ball-record {
   display: inline-block;
   margin: 0 2px;
@@ -197,41 +201,69 @@ header h1 {
 .target-setting {
   border: 1px solid #ddd;
   border-radius: 6px;
-  padding: 8px;
+  padding: 10px;
   background-color: #F0F8FF;
   text-align: center;
 }
-.target-setting h2 {
-  font-size: 1rem;
-  margin-bottom: 6px;
-  color: #2E86C1;
-}
+
 .target-inputs {
-  margin-bottom: 6px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
 }
+
 .target-inputs input {
-  padding: 4px;
-  margin: 2px;
+  padding: 6px;
   width: 60px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
+
+/* Center the Set Target button */
 #setTarget {
-  padding: 4px 8px;
-  border: none;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 8px 12px;
   background: #28a745;
   color: white;
+  border: none;
   border-radius: 4px;
+  font-size: 0.9rem;
   cursor: pointer;
-  font-size: 0.8rem;
 }
+
 #setTarget:hover {
   background: #218838;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .container { padding: 8px; }
-  .action-btn { font-size: 0.75rem; padding: 5px 8px; }
+/* Animations */
+@keyframes press {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+.action-btn:active {
+  animation: press 0.15s ease-in-out;
+}
+
+@keyframes flashScore {
+  0%   { color: #2E86C1; transform: scale(1); }
+  50%  { color: #117A65; transform: scale(1.25); }
+  100% { color: #2E86C1; transform: scale(1); }
+}
+
+.score-flash {
+  animation: flashScore 0.4s ease-in-out;
+}
+
+@keyframes ballPop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+.ball.pop {
+  animation: ballPop 0.3s ease-out;
 }
