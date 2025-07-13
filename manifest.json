@@ -1,10 +1,10 @@
 {
-  "name": "My PWA App",
-  "short_name": "PWA App",
-  "start_url": ".",
+  "name": "Cricket Score Counter",
+  "short_name": "ScoreCounter",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0d6efd",
+  "background_color": "#E0EAFC",
+  "theme_color": "#2E86C1",
   "icons": [
     {
       "src": "icons/icon-192.png",
