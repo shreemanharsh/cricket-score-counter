@@ -20,8 +20,8 @@ body {
 }
 
 .container {
-  max-width: 380px;
-  width: 95%;
+  max-width: 420px;
+  width: 96%;
   background: #fff;
   padding: 10px;
   border: 2px solid #ddd;
@@ -45,13 +45,14 @@ section h2 {
   justify-content: space-between;
   align-items: stretch;
   margin-bottom: 10px;
+  gap: 8px;
 }
 
 .score-col {
-  width: 48%;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 6px;
 }
 
 .score-item {
@@ -63,11 +64,6 @@ section h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 6px;
-}
-
-.score-item:last-child {
-  margin-bottom: 0;
 }
 
 .label {
@@ -84,12 +80,10 @@ section h2 {
 #runRate,
 #overs,
 #wickets {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
-#wickets {
-  color: #E74C3C;
-}
+#wickets { color: #E74C3C; }
 
 /* Uniform section styling */
 .target-achieve,
@@ -106,21 +100,19 @@ section h2 {
 
 /* Specific backgrounds */
 .target-achieve,
-.target-setting {
-  background-color: #F0F8FF;
-}
+.target-setting { background-color: #F0F8FF; }
 
 /* Ball indicators */
 .balls-indicator {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
   gap: 4px;
-  flex-wrap: wrap;
+  justify-items: center;
 }
 
 .ball {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border: 2px solid #2E86C1;
   border-radius: 50%;
   display: flex;
@@ -129,43 +121,36 @@ section h2 {
   font-size: 12px;
 }
 
-.extra-ball {
-  border-color: #F39C12;
-}
+.extra-ball { border-color: #F39C12; }
 
 /* Controls: buttons layout */
 .buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 6px;
-  margin-bottom: 8px;
 }
 
 .utility-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 6px;
 }
 
 /* Action buttons */
 .action-btn {
-  padding: 10px 14px;
-  min-width: 70px;
+  padding: 10px 10px;
   border: none;
   border-radius: 6px;
   background: #2E86C1;
   color: white;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.action-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-}
+.action-btn:hover { transform: scale(1.05); box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
 
 .extra-btn { background: #F39C12; }
 .wicket-btn { background: #E74C3C; }
@@ -173,22 +158,11 @@ section h2 {
 .reset-btn { background: #2C3E50; }
 
 /* Over-wise Scorecard Section */
-.overwise-score {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 8px;
-  background-color: #F9F9F9;
-  margin-bottom: 10px;
-}
-
+.overwise-score { display: none; }
 .over {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   text-align: center;
   margin-bottom: 4px;
-}
-
-.over:last-child {
-  margin-bottom: 0;
 }
 
 .ball-record {
@@ -199,10 +173,6 @@ section h2 {
 
 /* Target Setting Option Section */
 .target-setting {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 10px;
-  background-color: #F0F8FF;
   text-align: center;
 }
 
@@ -214,65 +184,69 @@ section h2 {
 }
 
 .target-inputs input {
-  padding: 6px;
-  width: 60px;
+  padding: 8px;
+  width: 80px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
-/* Center the Set Target button */
-#setTarget {
-  display: inline-block;
-  margin: 0 auto;
-  padding: 8px 12px;
-  background: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-#setTarget:hover {
-  background: #218838;
-}
+#setTarget { display: inline-block; padding: 10px 12px; background: #28a745; color: white; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; }
+#setTarget:hover { background: #218838; }
 
 /* Animations */
-@keyframes press {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.92); }
-  100% { transform: scale(1); }
-}
+@keyframes press { 0% { transform: scale(1); } 50% { transform: scale(0.92); } 100% { transform: scale(1); } }
+.action-btn:active { animation: press 0.15s ease-in-out; }
 
-.action-btn:active {
-  animation: press 0.15s ease-in-out;
-}
+@keyframes flashScore { 0% { color: #2E86C1; transform: translateY(0); } 50% { color: #117A65; transform: translateY(-6px); } 100% { color: #2E86C1; transform: translateY(0); } }
+.score-flash { animation: flashScore 0.35s ease-in-out; }
 
-@keyframes flashScore {
-  0%   { color: #2E86C1; transform: scale(1); }
-  50%  { color: #117A65; transform: scale(1.25); }
-  100% { color: #2E86C1; transform: scale(1); }
-}
+@keyframes ballPop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.ball.pop { animation: ballPop 0.25s ease-out; }
 
-.score-flash {
-  animation: flashScore 0.4s ease-in-out;
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
 }
+.modal.open { display: flex; animation: fadeIn 160ms ease-out; }
 
-@keyframes ballPop {
-  0%   { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1);   opacity: 1; }
+.modal-content {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  overflow: hidden;
+  transform: translateY(12px);
+  animation: slideUp 200ms ease-out forwards;
 }
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+}
+.modal-body { padding: 10px; max-height: 60vh; overflow-y: auto; }
+.close-btn { background: transparent; border: none; font-size: 1.2rem; cursor: pointer; }
 
-.ball.pop {
-  animation: ballPop 0.3s ease-out;
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { to { transform: translateY(0); } }
+
+/* Desktop enhancements */
+@media (min-width: 640px) {
+  .container { max-width: 520px; }
+  .overwise-score { display: block; }
+  #toggleOvers { display: none; }
 }
 
 /* Respect user preferences to reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

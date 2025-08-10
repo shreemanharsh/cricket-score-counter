@@ -77,6 +77,7 @@
       <div class="utility-buttons">
         <button class="action-btn undo-btn" onclick="undo()">Undo</button>
         <button class="action-btn reset-btn" onclick="confirmReset()">Reset</button>
+        <button class="action-btn" id="toggleOvers">Overs Log</button>
       </div>
     </section>
     
@@ -96,6 +97,17 @@
       <button id="setTarget">Set Target</button>
     </section>
     
+  </div>
+
+  <!-- Modal for Over-wise Score (mobile) -->
+  <div id="oversModal" class="modal" aria-hidden="true" role="dialog" aria-label="Over-wise Scorecard">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Over-wise Scorecard</h2>
+        <button id="closeOvers" class="close-btn" aria-label="Close">✕</button>
+      </div>
+      <div id="overwiseScoreModal" class="modal-body"></div>
+    </div>
   </div>
   
   <script src="script.js" defer></script>

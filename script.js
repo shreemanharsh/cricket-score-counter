@@ -27,6 +27,10 @@ const dom = {
   targetRunsInput: document.getElementById("targetRuns"),
   targetBallsInput: document.getElementById("targetBalls"),
   setTargetBtn: document.getElementById("setTarget"),
+  toggleOversBtn: document.getElementById("toggleOvers"),
+  oversModal: document.getElementById("oversModal"),
+  closeOversBtn: document.getElementById("closeOvers"),
+  overwiseScoreModal: document.getElementById("overwiseScoreModal"),
 };
 
 let lastRenderedScore = 0;
@@ -34,6 +38,20 @@ let lastRenderedScore = 0;
 // Count legal deliveries in an over
 function countLegalInOver(arr) {
   return arr.filter(v => v !== "WD" && v !== "NB").length;
+}
+
+function renderOverwise(container) {
+  container.textContent = "";
+  const fragment = document.createDocumentFragment();
+  overHistory.forEach((ov, idx) => {
+    const d = document.createElement("div");
+    d.className = "over";
+    let txt = `Over ${idx + 1}: `;
+    ov.forEach(x => (txt += `<span class="ball-record">${x}</span>`));
+    d.innerHTML = txt;
+    fragment.appendChild(d);
+  });
+  container.appendChild(fragment);
 }
 
 // Update all displays
@@ -88,19 +106,12 @@ function updateDisplay() {
   }
   ballsIndicator.appendChild(ballsFragment);
 
-  // Over-wise history
-  const overwise = dom.overwiseScore;
-  overwise.textContent = "";
-  const overFragment = document.createDocumentFragment();
-  overHistory.forEach((ov, idx) => {
-    const d = document.createElement("div");
-    d.className = "over";
-    let txt = `Over ${idx + 1}: `;
-    ov.forEach(x => (txt += `<span class="ball-record">${x}</span>`));
-    d.innerHTML = txt;
-    overFragment.appendChild(d);
-  });
-  overwise.appendChild(overFragment);
+  // Over-wise history (desktop)
+  renderOverwise(dom.overwiseScore);
+  // If modal is open, also refresh its content
+  if (dom.oversModal.classList.contains('open')) {
+    renderOverwise(dom.overwiseScoreModal);
+  }
 }
 
 // Legal ball
@@ -223,6 +234,30 @@ dom.setTargetBtn.addEventListener("click", () => {
     updateDisplay();
   }
 });
+
+// Modal interactions
+if (dom.toggleOversBtn) {
+  dom.toggleOversBtn.addEventListener('click', () => {
+    renderOverwise(dom.overwiseScoreModal);
+    dom.oversModal.classList.add('open');
+    dom.oversModal.setAttribute('aria-hidden', 'false');
+  });
+}
+if (dom.closeOversBtn) {
+  dom.closeOversBtn.addEventListener('click', () => {
+    dom.oversModal.classList.remove('open');
+    dom.oversModal.setAttribute('aria-hidden', 'true');
+  });
+}
+// Close when clicking backdrop
+if (dom.oversModal) {
+  dom.oversModal.addEventListener('click', (e) => {
+    if (e.target === dom.oversModal) {
+      dom.oversModal.classList.remove('open');
+      dom.oversModal.setAttribute('aria-hidden', 'true');
+    }
+  });
+}
 
 // Initial render
 updateDisplay();
