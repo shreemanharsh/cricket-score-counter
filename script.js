@@ -15,22 +15,6 @@ let targetBalls = null;
 // Undo history
 const historyStack = [];
 
-// Cache DOM references to minimize repeated lookups
-const dom = {
-  score: document.getElementById("score"),
-  overs: document.getElementById("overs"),
-  runRate: document.getElementById("runRate"),
-  wickets: document.getElementById("wickets"),
-  targetDisplay: document.getElementById("targetDisplay"),
-  ballsIndicator: document.getElementById("ballsIndicator"),
-  overwiseScore: document.getElementById("overwiseScore"),
-  targetRunsInput: document.getElementById("targetRuns"),
-  targetBallsInput: document.getElementById("targetBalls"),
-  setTargetBtn: document.getElementById("setTarget"),
-};
-
-let lastRenderedScore = 0;
-
 // Count legal deliveries in an over
 function countLegalInOver(arr) {
   return arr.filter(v => v !== "WD" && v !== "NB").length;
@@ -38,43 +22,37 @@ function countLegalInOver(arr) {
 
 // Update all displays
 function updateDisplay() {
-  const scoreEl = dom.score;
-  if (lastRenderedScore !== totalScore) {
-    scoreEl.textContent = totalScore;
-    scoreEl.classList.remove("score-flash");
-    void scoreEl.offsetWidth;
-    scoreEl.classList.add("score-flash");
-    lastRenderedScore = totalScore;
-  } else {
-    scoreEl.textContent = totalScore;
-  }
+  const scoreEl = document.getElementById("score");
+  scoreEl.textContent = totalScore;
+  scoreEl.classList.remove("score-flash");
+  void scoreEl.offsetWidth;
+  scoreEl.classList.add("score-flash");
 
-  dom.overs.textContent = `${overHistory.length}.${currentLegalBalls}`;
+  document.getElementById("overs").textContent = `${overHistory.length}.${currentLegalBalls}`;
 
   const totalDel = overHistory.length * legalBallsPerOver + currentLegalBalls;
-  dom.runRate.textContent =
+  document.getElementById("runRate").textContent =
     totalDel > 0 ? (totalScore / (totalDel / 6)).toFixed(2) : "0.00";
 
-  const wEl = dom.wickets;
+  const wEl = document.getElementById("wickets");
   wEl.textContent = wEl.dataset.value || "0";
 
   // Target logic
   if (targetRuns !== null && targetBalls !== null) {
     const remBalls = targetBalls - totalDel;
     const remRuns = targetRuns - totalScore;
-    const msg = remRuns <= 0
+    let msg = remRuns <= 0
       ? "You own the match"
       : remBalls <= 0
         ? "You lost the match"
         : `Need ${remRuns} runs in ${remBalls} balls`;
-    dom.targetDisplay.textContent = msg;
+    document.getElementById("targetDisplay").textContent = msg;
   }
 
   // Ball indicators
-  const ballsIndicator = dom.ballsIndicator;
-  ballsIndicator.textContent = "";
+  const ballsIndicator = document.getElementById("ballsIndicator");
+  ballsIndicator.innerHTML = "";
   const displayCount = Math.max(legalBallsPerOver, currentOver.length);
-  const ballsFragment = document.createDocumentFragment();
   for (let i = 0; i < displayCount; i++) {
     const b = document.createElement("div");
     b.className = "ball";
@@ -84,23 +62,20 @@ function updateDisplay() {
       b.innerHTML = val;
       b.classList.add("pop");
     }
-    ballsFragment.appendChild(b);
+    ballsIndicator.appendChild(b);
   }
-  ballsIndicator.appendChild(ballsFragment);
 
   // Over-wise history
-  const overwise = dom.overwiseScore;
-  overwise.textContent = "";
-  const overFragment = document.createDocumentFragment();
+  const overwise = document.getElementById("overwiseScore");
+  overwise.innerHTML = "";
   overHistory.forEach((ov, idx) => {
     const d = document.createElement("div");
     d.className = "over";
     let txt = `Over ${idx + 1}: `;
     ov.forEach(x => (txt += `<span class="ball-record">${x}</span>`));
     d.innerHTML = txt;
-    overFragment.appendChild(d);
+    overwise.appendChild(d);
   });
-  overwise.appendChild(overFragment);
 }
 
 // Legal ball
@@ -139,7 +114,7 @@ function addWicket() {
   currentLegalBalls++;
   currentOver.push('<span style="color:#E74C3C;">W</span>');
 
-  const wEl = dom.wickets;
+  const wEl = document.getElementById("wickets");
   const newW = parseInt(wEl.dataset.value || "0") + 1;
   wEl.dataset.value = newW;
   wEl.textContent = newW;
@@ -162,7 +137,7 @@ function undo() {
   if (last.type === "legal") {
     totalLegalBalls--;
     if (last.wicket) {
-      const wEl = dom.wickets;
+      const wEl = document.getElementById("wickets");
       const w = parseInt(wEl.dataset.value || "0") - 1;
       wEl.dataset.value = w;
       wEl.textContent = w;
@@ -202,21 +177,21 @@ function resetMatch() {
   currentOver = [];
   overHistory = [];
   currentLegalBalls = 0;
-  const wEl = dom.wickets;
+  const wEl = document.getElementById("wickets");
   wEl.dataset.value = "0";
   wEl.textContent = "0";
   historyStack.length = 0;
   targetRuns = targetBalls = null;
-  dom.targetRunsInput.value = "";
-  dom.targetBallsInput.value = "";
-  dom.targetDisplay.textContent = "";
+  document.getElementById("targetRuns").value = "";
+  document.getElementById("targetBalls").value = "";
+  document.getElementById("targetDisplay").textContent = "";
   updateDisplay();
 }
 
 // Set target
-dom.setTargetBtn.addEventListener("click", () => {
-  const r = dom.targetRunsInput.value;
-  const b = dom.targetBallsInput.value;
+document.getElementById("setTarget").addEventListener("click", () => {
+  const r = document.getElementById("targetRuns").value;
+  const b = document.getElementById("targetBalls").value;
   if (r && b) {
     targetRuns = parseInt(r);
     targetBalls = parseInt(b);
