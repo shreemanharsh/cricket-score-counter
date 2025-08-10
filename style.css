@@ -267,12 +267,3 @@ section h2 {
 .ball.pop {
   animation: ballPop 0.3s ease-out;
 }
-
-/* Respect user preferences to reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
